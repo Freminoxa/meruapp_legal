@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MeruApp - The official mobile application of the County Government of Meru. Access public services, government information, business directory, and community updates.">
+    <meta name="keywords" content="Meru County, MeruApp, Kenya, public services, county government, digital services">
+    <meta name="author" content="County Government of Meru">
+    <meta property="og:title" content="MeruApp - Official County Government of Meru Mobile Application">
+    <meta property="og:description" content="Access public services, government information, and community updates through the official Meru County mobile app.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://app.meru.go.ke">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>MeruApp | Official County Government of Meru</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --meru-green: #1a5f2a;
+            --meru-green-dark: #0d3b16;
+            --meru-green-light: #2e7d32;
+            --meru-gold: #f9a825;
+            --meru-gold-light: #ffeb3b;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-light: #94a3b8;
+            --bg-page: #f8fafc;
+            --bg-white: #ffffff;
+            --bg-cream: #fefce8;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+            --radius: 12px;
+            --radius-lg: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-page);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .nav-brand img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+        }
+
+        .nav-brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-brand-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--meru-green);
+            line-height: 1.2;
+        }
+
+        .nav-brand-sub {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--meru-green);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--meru-green);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--meru-green) 0%, var(--meru-green-dark) 100%);
+            color: white !important;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 4px 14px rgba(26, 95, 42, 0.3);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 95, 42, 0.4);
+        }
+
+        .nav-cta::after { display: none !important; }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            margin: 5px 0;
+            transition: var(--transition);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--meru-green-dark) 0%, var(--meru-green) 50%, #0f5c1f 100%);
+            position: relative;
+            overflow: hidden;
+            padding-top: 72px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(249,168,37,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--meru-gold-light);
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 span {
+            color: var(--meru-gold);
+        }
+
+        .hero-desc {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--meru-gold);
+            color: var(--meru-green-dark);
+            box-shadow: 0 4px 14px rgba(249,168,37,0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(249,168,37,0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--meru-gold);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.7);
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .phone-mockup {
+            width: 280px;
+            height: 560px;
+            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5), 0 0 0 4px rgba(255,255,255,0.1);
+            position: relative;
+            transform: perspective(1000px) rotateY(-15deg) rotateX(5deg);
+            transition: var(--transition);
+        }
+
+        .phone-mockup:hover {
+            transform: perspective(1000px) rotateY(-10deg) rotateX(2deg) translateY(-10px);
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, var(--meru-green) 0%, var(--meru-green-dark) 100%);
+            border-radius: 32px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .phone-screen::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 30px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 32px 32px 0 0;
+        }
+
+        .phone-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        }
+
+        .phone-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .phone-subtitle {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .phone-features {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            width: 100%;
+        }
+
+        .phone-feature {
+            background: rgba(255,255,255,0.15);
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            color: white;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .phone-feature-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--meru-gold);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+        }
+
+        /* ===== SECTIONS GENERAL ===== */
+        .section {
+            padding: 6rem 1.5rem;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            color: var(--meru-green);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        .about-section {
+            background: var(--bg-white);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .about-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 100px;
+            background: linear-gradient(to top, rgba(26,95,42,0.8), transparent);
+        }
+
+        .about-image-caption {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            z-index: 1;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .about-content h3 {
+            font-size: 1.75rem;
+            color: var(--meru-green);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .about-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .about-feature-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.2rem;
+        }
+
+        .about-feature-text h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .about-feature-text p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* ===== FEATURES SECTION ===== */
+        .features-section {
+            background: var(--bg-page);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--meru-green), var(--meru-gold));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--meru-green) 0%, var(--meru-green-light) 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ===== SERVICES SECTION ===== */
+        .services-section {
+            background: var(--bg-white);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--bg-page);
+            border-radius: var(--radius);
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .service-item:hover {
+            background: var(--bg-white);
+            border-color: var(--border);
+            box-shadow: var(--shadow);
+            transform: translateY(-2px);
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--meru-gold) 0%, #ffca28 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .service-text h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .service-text p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ===== GOVERNMENT SECTION ===== */
+        .gov-section {
+            background: linear-gradient(135deg, var(--meru-green-dark) 0%, var(--meru-green) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gov-section::before {
+            content: '';
+            position: absolute;
+            top: -50%; right: -20%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(249,168,37,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .gov-section .section-title,
+        .gov-section .section-desc {
+            color: white;
+        }
+
+        .gov-section .section-label {
+            background: rgba(255,255,255,0.15);
+            color: var(--meru-gold-light);
+        }
+
+        .gov-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .gov-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: var(--transition);
+        }
+
+        .gov-card:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-4px);
+        }
+
+        .gov-card-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--meru-gold);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--meru-green-dark);
+            overflow: hidden;
+        }
+
+        .gov-card-icon img,
+        .feature-icon img,
+        .service-icon img,
+        .store-btn-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .gov-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .gov-card p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.6;
+        }
+
+        /* ===== DOWNLOAD SECTION ===== */
+        .download-section {
+            background: var(--bg-cream);
+            text-align: center;
+        }
+
+        .download-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .download-section .section-title {
+            margin-bottom: 1rem;
+        }
+
+        .download-section .section-desc {
+            margin-bottom: 2.5rem;
+        }
+
+        .store-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .store-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: var(--text-primary);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .store-btn:hover {
+            background: var(--meru-green);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .store-btn-icon {
+            font-size: 1.5rem;
+            width: 64px;
+            height: 64px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .store-btn-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .store-btn-text {
+            text-align: left;
+        }
+
+        .store-btn-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            opacity: 0.8;
+            display: block;
+        }
+
+        .store-btn-title {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .download-note {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: white;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* ===== LEGAL SECTION ===== */
+        .legal-section {
+            background: var(--bg-white);
+        }
+
+        .legal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .legal-card {
+            background: var(--bg-page);
+            border-radius: var(--radius);
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .legal-card:hover {
+            box-shadow: var(--shadow);
+            border-color: var(--meru-green);
+        }
+
+        .legal-card h3 {
+            font-size: 1.25rem;
+            color: var(--meru-green);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .legal-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .legal-card .btn-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--meru-green);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .legal-card .btn-link:hover {
+            gap: 0.75rem;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--meru-green-dark);
+            color: white;
+            padding: 4rem 1.5rem 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand img {
+            width: 48px;
+            height: 48px;
+        }
+
+        .footer-brand-text h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .footer-brand-text span {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-desc {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.7;
+            max-width: 300px;
+        }
+
+        .footer-column h5 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.25rem;
+            color: var(--meru-gold);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-column a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-bottom-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        .footer-bottom-links a:hover {
+            color: white;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-desc { margin: 0 auto 2rem; }
+            .hero-buttons { justify-content: center; }
+            .hero-stats { justify-content: center; }
+            .hero-visual { display: none; }
+            .about-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .hero h1 { font-size: 2.5rem; }
+            .section-title { font-size: 2rem; }
+            .about-features { grid-template-columns: 1fr; }
+            .legal-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+            .section { padding: 4rem 1rem; }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-brand">
+                <img src="logo.png" alt="Meru County Seal">
+                <div class="nav-brand-text">
+                    <span class="nav-brand-title">MeruApp</span>
+                    <span class="nav-brand-sub">County Government of Meru</span>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#government">Government</a></li>
+                <li><a href="#download">Download</a></li>
+                <li><a href="terms.html" class="nav-cta">Terms & Privacy</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="dot"></span>
+                    Official County Digital Service
+                </div>
+                <h1>Your County, <span>Your App</span></h1>
+                <p class="hero-desc">
+                    MeruApp connects you directly to the County Government of Meru. Access public services, 
+                    stay informed, engage with your community, and empower your future — all from your smartphone.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#download" class="btn btn-primary">
+                        <span>📱</span> Download Now
+                    </a>
+                    <a href="#features" class="btn btn-secondary">
+                        <span>Explore Features</span>
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">County Services</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Digital Access</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Free for Residents</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <img src="logo.png" alt="MeruApp Logo" class="phone-logo">
+                        <div class="phone-title">MeruApp</div>
+                        <div class="phone-subtitle">County Government of Meru</div>
+                        <div class="phone-features">
+                            <div class="phone-feature">
+                                <div class="phone-feature-icon"></div>
+                                <span>Public Services</span>
+                            </div>
+                            <div class="phone-feature">
+                                <div class="phone-feature-icon"></div>
+                                <span>News & Updates</span>
+                            </div>
+                            <div class="phone-feature">
+                                <div class="phone-feature-icon"></div>
+                                <span>Business Directory</span>
+                            </div>
+                            <div class="phone-feature">
+                                <div class="phone-feature-icon"></div>
+                                <span>Emergency Services</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about-section" id="about">
+        <div class="section-container">
+            <div class="about-grid">
+                <div class="about-image">
+                    <img src="governor.webp" alt="Meru County Government">
+                    <div class="about-image-caption">Meru County — Land of Prosperity</div>
+                </div>
+                <div class="about-content">
+                    <span class="section-label">About MeruApp</span>
+                    <h3>Bringing Government Closer to the People</h3>
+                    <p>
+                        MeruApp is the official digital platform of the County Government of Meru, designed to bridge 
+                        the gap between public institutions and residents. Whether you need to access county services, 
+                        stay updated on development projects, or connect with local businesses, MeruApp puts it all 
+                        at your fingertips.
+                    </p>
+                    <p>
+                        Built with transparency, accessibility, and citizen empowerment at its core, MeruApp represents 
+                        our commitment to digital governance and inclusive public service delivery for all residents of Meru County.
+                    </p>
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <div class="about-feature-icon">🔐</div>
+                            <div class="about-feature-text">
+                                <h4>Secure & Verified</h4>
+                                <p>OTP-based authentication</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon">📍</div>
+                            <div class="about-feature-text">
+                                <h4>Location-Aware</h4>
+                                <p>Sub-county specific info</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon">🔔</div>
+                            <div class="about-feature-text">
+                                <h4>Real-Time Alerts</h4>
+                                <p>Instant notifications</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon">♿</div>
+                            <div class="about-feature-text">
+                                <h4>Accessible Design</h4>
+                                <p>Built for everyone</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section features-section" id="features">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-label">App Features</span>
+                <h2 class="section-title">Everything You Need in One App</h2>
+                <p class="section-desc">
+                    From public services to community engagement, MeruApp is your comprehensive companion 
+                    for navigating county life and government services.
+                </p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🏛️</div>
+                    <h3>Public Services</h3>
+                    <p>Access county services, apply for permits, pay fees, and track applications — all without visiting a physical office.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📢</div>
+                    <h3>News & Tenders</h3>
+                    <p>Stay informed with the latest county news, development updates, procurement opportunities, and public announcements.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💼</div>
+                    <h3>Business Directory</h3>
+                    <p>Discover and connect with local businesses, traders, and service providers across all sub-counties of Meru.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌾</div>
+                    <h3>Agriculture</h3>
+                    <p>Get farming tips, market prices, weather updates, and access agricultural extension services directly.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><img src="hospital.png" alt="Health Services"></div>
+                    <h3>Health Services</h3>
+                    <p>Locate health facilities, book appointments, access health information, and receive emergency alerts.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎓</div>
+                    <h3>Education</h3>
+                    <p>Find schools, bursary information, scholarship opportunities, and educational resources for all levels.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🆘</div>
+                    <h3>Emergency Services</h3>
+                    <p>Quick access to emergency contacts, ambulance services, police stations, and disaster response information.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🗓️</div>
+                    <h3>Events & Calendar</h3>
+                    <p>Never miss county events, public forums, barazas, and community gatherings with our integrated calendar.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Community Baraza</h3>
+                    <p>Engage in public discourse, report issues, give feedback, and participate in county decision-making.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section services-section" id="services">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-label">County Services</span>
+                <h2 class="section-title">Services at Your Fingertips</h2>
+                <p class="section-desc">
+                    MeruApp provides direct access to a wide range of county government services, 
+                    making it easier than ever to interact with public institutions.
+                </p>
+            </div>
+            <div class="services-grid">
+                <div class="service-item">
+                    <div class="service-icon">📄</div>
+                    <div class="service-text">
+                        <h4>Single Business Permit</h4>
+                        <p>Apply for and renew trade licenses and business permits online.</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">🏗️</div>
+                    <div class="service-text">
+                        <h4>Construction Permits</h4>
+                        <p>Submit building plans and track approval status digitally.</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">🚗</div>
+                    <div class="service-text">
+                        <h4>Vehicle Licensing</h4>
+                        <p>Access vehicle registration and parking services.</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">💧</div>
+                    <div class="service-text">
+                        <h4>Water Services</h4>
+                        <p>Apply for water connections and report supply issues.</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">🌳</div>
+                    <div class="service-text">
+                        <h4>Environment & Forestry</h4>
+                        <p>Report environmental concerns and access conservation programs.</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon"><img src="hospital.png" alt="Health & Sanitation"></div>
+                    <div class="service-text">
+                        <h4>Health & Sanitation</h4>
+                        <p>Find health facilities, vaccination schedules, and sanitation services.</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">🎓</div>
+                    <div class="service-text">
+                        <h4>Bursaries & Scholarships</h4>
+                        <p>Apply for county education support and track application status.</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">🏠</div>
+                    <div class="service-text">
+                        <h4>Land & Housing</h4>
+                        <p>Access land records, rates payment, and housing programs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Government Section -->
+    <section class="section gov-section" id="government">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-label">Your Government</span>
+                <h2 class="section-title">Governance & Transparency</h2>
+                <p class="section-desc">
+                    MeruApp is built on the principles of open governance, transparency, and citizen participation. 
+                    Know your government, engage with leadership, and hold institutions accountable.
+                </p>
+            </div>
+            <div class="gov-grid">
+                <div class="gov-card">
+                    <div class="gov-card-icon"><img src="governor.webp" alt="Governor's Corner"></div>
+                    <h3>Governor's Corner</h3>
+                    <p>Direct messages from the Governor, development priorities, and vision for Meru County's future.</p>
+                </div>
+                <div class="gov-card">
+                    <div class="gov-card-icon">B</div>
+                    <h3>County Budget</h3>
+                    <p>Access approved budgets, expenditure reports, and development project tracking.</p>
+                </div>
+                <div class="gov-card">
+                    <div class="gov-card-icon">T</div>
+                    <h3>Tenders & Procurement</h3>
+                    <p>View open tenders, award notices, and procurement opportunities for local businesses.</p>
+                </div>
+                <div class="gov-card">
+                    <div class="gov-card-icon"><img src="assembly.png" alt="County Assembly"></div>
+                    <h3>County Assembly</h3>
+                    <p>Legislative updates, public participation schedules, and assembly proceedings.</p>
+                </div>
+                <div class="gov-card">
+                    <div class="gov-card-icon">S</div>
+                    <h3>Sub-County Offices</h3>
+                    <p>Find contact details, locations, and services offered at every sub-county office.</p>
+                </div>
+                <div class="gov-card">
+                    <div class="gov-card-icon">P</div>
+                    <h3>Public Participation</h3>
+                    <p>Join public consultations, submit memoranda, and engage in county planning processes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section class="section download-section" id="download">
+        <div class="section-container">
+            <div class="download-content">
+                <span class="section-label">Get the App</span>
+                <h2 class="section-title">Download MeruApp Today</h2>
+                <p class="section-desc">
+                    Available on Android and coming soon to iOS. Join thousands of Meru residents 
+                    already accessing county services through their smartphones.
+                </p>
+                <div class="store-buttons">
+                    <a href="#" class="store-btn">
+                        <span class="store-btn-icon"><img src="playstore.png" alt="Google Play"></span>
+                        <div class="store-btn-text">
+                            <span class="store-btn-label">Get it on</span>
+                            <span class="store-btn-title">Google Play</span>
+                        </div>
+                    </a>
+                    <a href="#" class="store-btn">
+                        <span class="store-btn-icon"><img src="appstore.png" alt="App Store"></span>
+                        <div class="store-btn-text">
+                            <span class="store-btn-label">Coming soon</span>
+                            <span class="store-btn-title">App Store</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="download-note">
+                    <strong>System Requirements:</strong> Android 6.0+ or iOS 13+. The app requires internet connection 
+                    for full functionality. Some features work offline after initial sync.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Legal Section -->
+    <section class="section legal-section" id="legal">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-label">Legal</span>
+                <h2 class="section-title">Terms & Privacy</h2>
+                <p class="section-desc">
+                    We are committed to protecting your data and ensuring transparent service. 
+                    Review our legal documents to understand your rights and our responsibilities.
+                </p>
+            </div>
+            <div class="legal-grid">
+                <div class="legal-card">
+                    <h3>📋 Terms & Conditions</h3>
+                    <p>
+                        By using MeruApp, you agree to our terms of service. These terms outline your responsibilities 
+                        as a user, our limitations of liability, and the governing law under the Republic of Kenya.
+                    </p>
+                    <a href="terms.html" class="btn-link">
+                        Read Terms & Conditions <span>→</span>
+                    </a>
+                </div>
+                <div class="legal-card">
+                    <h3>🔒 Privacy Policy</h3>
+                    <p>
+                        We collect and process your personal data in accordance with Kenya's Data Protection Act, 2019. 
+                        Learn what data we collect, how we use it, and your rights as a data subject.
+                    </p>
+                    <a href="privacy.html" class="btn-link">
+                        Read Privacy Policy <span>→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">
+                    <img src="logo.png" alt="Meru County Seal">
+                    <div class="footer-brand-text">
+                        <h4>MeruApp</h4>
+                        <span>County Government of Meru</span>
+                    </div>
+                </div>
+                <p class="footer-desc">
+                    The official digital platform connecting residents of Meru County to government services, 
+                    information, and community resources. Built for the people, by the people.
+                </p>
+            </div>
+            <div class="footer-column">
+                <h5>Quick Links</h5>
+                <ul>
+                    <li><a href="#about">About MeruApp</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#download">Download</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h5>Legal</h5>
+                <ul>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="#">Data Protection</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h5>Contact</h5>
+                <ul>
+                    <li><a href="#">County Headquarters</a></li>
+                    <li><a href="#">Support Center</a></li>
+                    <li><a href="#">Report an Issue</a></li>
+                    <li><a href="#">Feedback</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 County Government of Meru. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="terms.html">Terms</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="#">Sitemap</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
